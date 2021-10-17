@@ -46,6 +46,7 @@ public class ApplicationStart {
                                     case "3":
                                         //Add a appointment scheduling
                                         System.out.println("- MARCAR CONSULTA -");
+                                        Insert_Appointment(sc,appointments.get_all_appointment().size(),clients);
                                         command = "";
                                         break;
                                 }
@@ -388,7 +389,7 @@ public class ApplicationStart {
 
         return client;
     }
-    public static Appointment Insert_Appointment(Scanner sc, int id, Client_Repository clients){
+    public static Appointment Insert_Appointment(Scanner sc, int id, Client_Repository clients) throws ParseException {
         int id_client;
         String daytime = "";
         Client client = null;
@@ -417,6 +418,12 @@ public class ApplicationStart {
             }
         }
 
+        Appointment appointment = new Appointment(id,client,daytime);
+        System.out.println('\n' + "- VERIFICAÇÃO DOS DADOS INSERIDOS - ");
+        showAppointment(appointment);
+        System.out.println('\n' + "Os dados estão corretos? (S/N)");
+
+        return appointment;
     }
 
     //Functions to show data stored in repositories
