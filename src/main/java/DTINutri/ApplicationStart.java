@@ -417,10 +417,10 @@ public class ApplicationStart {
             try {
                 System.out.println("Insira a data de marcação da consulta (dd-mm-yyyy hh:mi):");
                 daytime = sc.nextLine();
-                Date data_teste = new SimpleDateFormat("dd-MM-yyyy").parse(daytime);
+                Date data_teste = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(daytime);
                 valid_data = true;
             } catch (Exception e) {
-                System.out.println("Data inválida! Digite novamente no padrão 'dd-mm-yyyy'." + '\n');
+                System.out.println("Data inválida! Digite novamente no padrão 'dd-mm-yyyy hh:mi'." + '\n');
             }
         }
 
@@ -569,7 +569,6 @@ public class ApplicationStart {
         System.out.println("");
 
     }
-
 
 }
 
