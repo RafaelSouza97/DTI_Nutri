@@ -45,8 +45,14 @@ public class ApplicationStart {
                                         break;
                                     case "3":
                                         //Add a appointment scheduling
-                                        System.out.println("- MARCAR CONSULTA -");
-                                        Insert_Appointment(sc,appointments.get_all_appointment().size(),clients);
+                                        Appointment appointment = Insert_Appointment(sc,appointments.get_all_appointment().size(),clients);
+                                        String option = sc.nextLine();
+                                        if(option.equals("S")){
+                                            appointments.insert_appointment(appointment);
+                                            System.out.println("Consulta inserida com sucesso!" + '\n');
+                                        }else{
+                                            System.out.println("Os dados inseridos foram descartados." +'\n');
+                                        }
                                         command = "";
                                         break;
                                 }
@@ -409,7 +415,7 @@ public class ApplicationStart {
         boolean valid_data = false;
         while (!valid_data) {
             try {
-                System.out.println("Insira a data de nascimento do cliente (dd-mm-yyyy):");
+                System.out.println("Insira a data de marcação da consulta (dd-mm-yyyy hh:mi):");
                 daytime = sc.nextLine();
                 Date data_teste = new SimpleDateFormat("dd-MM-yyyy").parse(daytime);
                 valid_data = true;

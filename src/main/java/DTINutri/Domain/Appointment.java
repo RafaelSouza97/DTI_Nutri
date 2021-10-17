@@ -20,7 +20,7 @@ public class Appointment {
     public Appointment(int id_appointment, Client client, String daytime) throws ParseException {
         this.id_appointment = id_appointment;
         this.client = client;
-        Date data = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(daytime);
+        Date data = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(daytime);
         this.daytime = data;
         this.restrictions = new ArrayList<Restriction>();
     }
