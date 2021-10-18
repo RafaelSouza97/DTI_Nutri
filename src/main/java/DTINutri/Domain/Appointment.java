@@ -16,6 +16,9 @@ public class Appointment {
     private String phsical_description;
     private List<Restriction> restrictions;
     private double calories_goal;
+    private Food food1;
+    private Food food2;
+    private Food food3;
 
     public Appointment(int id_appointment, Client client, String daytime) throws ParseException {
         this.id_appointment = id_appointment;
@@ -23,6 +26,34 @@ public class Appointment {
         Date data = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(daytime);
         this.daytime = data;
         this.restrictions = new ArrayList<Restriction>();
+        this.phsical_description = "";
+        this.food1 = null;
+        this.food2 = null;
+        this.food3 = null;
+    }
+
+    public Food getFood1() {
+        return food1;
+    }
+
+    public void setFood1(Food food1) {
+        this.food1 = food1;
+    }
+
+    public Food getFood2() {
+        return food2;
+    }
+
+    public void setFood2(Food food2) {
+        this.food2 = food2;
+    }
+
+    public Food getFood3() {
+        return food3;
+    }
+
+    public void setFood3(Food food3) {
+        this.food3 = food3;
     }
 
     public int getId_appointment() {

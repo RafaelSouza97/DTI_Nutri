@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 
@@ -42,7 +43,14 @@ public class ApplicationStart {
                                     case "3":
                                         //Add a appointment scheduling
                                         Appointment appointment = controller.Insert_Appointment(sc);
-                                        String option = sc.nextLine();
+                                        String option = "";
+                                        while(!option.equals("S")&&!option.equals("N")){
+                                            System.out.println('\n' + "Os dados estão corretos? (S/N)");
+                                            option = sc.nextLine().toUpperCase();
+                                            if(!option.equals("S")&&!option.equals("N")){
+                                                System.out.println("Dados incorretos. Favor inserir no formato correto (S/N)");
+                                            }
+                                        }
                                         if(option.equals("S")){
                                             Appointment_Repository entry = controller.getAppointments();
                                             entry.insert_appointment(appointment);
@@ -76,7 +84,14 @@ public class ApplicationStart {
                                     default:
                                         //Insert a client
                                         Client client = controller.Insert_Client(sc);
-                                        String option = sc.nextLine();
+                                        String option = "";
+                                        while(!option.equals("S")&&!option.equals("N")){
+                                            System.out.println('\n' + "Os dados estão corretos? (S/N)");
+                                            option = sc.nextLine().toUpperCase();
+                                            if(!option.equals("S")&&!option.equals("N")){
+                                                System.out.println("Dados incorretos. Favor inserir no formato correto (S/N)");
+                                            }
+                                        }
                                         if(option.equals("S")){
                                             Client_Repository entry = controller.getClients();
                                             entry.insert_client(client);

@@ -5,6 +5,7 @@ import DTINutri.Repository.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -57,7 +58,7 @@ public class Controller {
         //Insert a Food_Group into a List
         food_groups.insert_Food_Group(food_group1);
 
-        Food_Group food_group2 = new Food_Group(food_groups.get_all_Food_Groups().size(),"Alimentos sólidos p/ vegetarianos");
+        Food_Group food_group2 = new Food_Group(food_groups.get_all_Food_Groups().size(),"Alimentos sólidos");
         food_groups.insert_Food_Group(food_group2);
 
         Food_Group food_group3 = new Food_Group(food_groups.get_all_Food_Groups().size(),"Carnes e Ovo");
@@ -93,18 +94,18 @@ public class Controller {
         Food_Repository foods = new Food_Repository();
 
         //Creating a Food
-        Food food1 = new Food(foods.get_all_foods().size(),"Leite",500, food_groups.get_all_Food_Groups().get(0));
+        Food food1 = new Food(foods.get_all_foods().size(),"Leite",750, food_groups.get_all_Food_Groups().get(0));
         //Inserting a restriction into a food
         food1.insertRestriction(restrictions.get_all_restrictions().get(0));
         //Inserting a Food into a list
         foods.insert_food(food1);
 
-        Food food2 = new Food(foods.get_all_foods().size(),"Refrigerante",750, food_groups.get_all_Food_Groups().get(0));
+        Food food2 = new Food(foods.get_all_foods().size(),"Refrigerante",1000, food_groups.get_all_Food_Groups().get(0));
         food2.insertRestriction(restrictions.get_all_restrictions().get(3));
         food2.insertRestriction(restrictions.get_all_restrictions().get(2));
         foods.insert_food(food2);
 
-        Food food3 = new Food(foods.get_all_foods().size(),"Suco s/ açúcar",250, food_groups.get_all_Food_Groups().get(0));
+        Food food3 = new Food(foods.get_all_foods().size(),"Suco s/ açúcar",500, food_groups.get_all_Food_Groups().get(0));
         foods.insert_food(food3);
 
         Food food4 = new Food(foods.get_all_foods().size(),"Queijo Cheddar",1000, food_groups.get_all_Food_Groups().get(1));
@@ -120,10 +121,10 @@ public class Controller {
         Food food6 = new Food(foods.get_all_foods().size(),"Presunto",500, food_groups.get_all_Food_Groups().get(1));
         foods.insert_food(food6);
 
-        Food food7 = new Food(foods.get_all_foods().size(),"Peito de Frango",750, food_groups.get_all_Food_Groups().get(2));
+        Food food7 = new Food(foods.get_all_foods().size(),"Peito de Frango",500, food_groups.get_all_Food_Groups().get(2));
         foods.insert_food(food7);
 
-        Food food8 = new Food(foods.get_all_foods().size(),"Bacon",750, food_groups.get_all_Food_Groups().get(2));
+        Food food8 = new Food(foods.get_all_foods().size(),"Bacon",1000, food_groups.get_all_Food_Groups().get(2));
         food8.insertRestriction(restrictions.get_all_restrictions().get(2));
         foods.insert_food(food8);
 
@@ -145,40 +146,48 @@ public class Controller {
         appointment1.setPhsical_description("Teste Teste");
         appointment1.setRestrictions(restrictions.get_all_restrictions().get(1));
         appointment1.setCalories_goal(1500.0);
+        appointment1.setFood1(foods.get_all_foods().get(2));
+        appointment1.setFood2(foods.get_all_foods().get(5));
+        appointment1.setFood3(foods.get_all_foods().get(6));
+
         //Insert appointment into a list
         appointments.insert_appointment(appointment1);
 
         Appointment appointment2 = new Appointment(appointments.get_all_appointment().size(),clients.get_all_clients().get(1),"15-10-2021 09:00:00");
-        appointment1.setWeight(70.5);
-        appointment1.setBodyfat(15.2);
-        appointment1.setPhsical_description("Teste Teste");
-        appointment1.setRestrictions(restrictions.get_all_restrictions().get(1));
-        appointment1.setRestrictions(restrictions.get_all_restrictions().get(2));
-        appointment1.setCalories_goal(2000.0);
+        appointment2.setWeight(70.5);
+        appointment2.setBodyfat(15.2);
+        appointment2.setPhsical_description("Teste Teste");
+        appointment2.setCalories_goal(2250.0);
+        appointment2.setFood1(foods.get_all_foods().get(0));
+        appointment2.setFood2(foods.get_all_foods().get(4));
+        appointment2.setFood3(foods.get_all_foods().get(8));
         appointments.insert_appointment(appointment2);
 
+
         Appointment appointment3 = new Appointment(appointments.get_all_appointment().size(),clients.get_all_clients().get(2),"15-10-2021 10:00:00");
-        appointment1.setWeight(58.5);
-        appointment1.setBodyfat(10.5);
-        appointment1.setPhsical_description("Teste Teste");
-        appointment1.setRestrictions(restrictions.get_all_restrictions().get(1));
-        appointment1.setCalories_goal(2500.0);
+        appointment3.setWeight(58.5);
+        appointment3.setBodyfat(10.5);
+        appointment3.setPhsical_description("Teste Teste");
+        appointment3.setRestrictions(restrictions.get_all_restrictions().get(1));
+        appointment3.setRestrictions(restrictions.get_all_restrictions().get(2));
+        appointment3.setCalories_goal(3000.0);
+        appointment3.setFood1(foods.get_all_foods().get(1));
+        appointment3.setFood2(foods.get_all_foods().get(3));
+        appointment3.setFood3(foods.get_all_foods().get(7));
         appointments.insert_appointment(appointment3);
 
         Appointment appointment4 = new Appointment(appointments.get_all_appointment().size(),clients.get_all_clients().get(0),"18-10-2021 12:00:00");
-        appointment1.setWeight(80.5);
-        appointment1.setBodyfat(17.0);
-        appointment1.setPhsical_description("Teste Teste");
-        appointment1.setRestrictions(restrictions.get_all_restrictions().get(1));
-        appointment1.setCalories_goal(1750.0);
+        appointment4.setWeight(80.5);
+        appointment4.setBodyfat(17.0);
+        appointment4.setPhsical_description("Teste Teste");
+        appointment4.setRestrictions(restrictions.get_all_restrictions().get(1));
+        appointment4.setCalories_goal(2000.0);
+        appointment4.setFood1(foods.get_all_foods().get(2));
+        appointment4.setFood2(foods.get_all_foods().get(4));
+        appointment4.setFood3(foods.get_all_foods().get(6));
         appointments.insert_appointment(appointment4);
 
         Appointment appointment5 = new Appointment(appointments.get_all_appointment().size(),clients.get_all_clients().get(2),"18-10-2021 14:30:00");
-        appointment1.setWeight(65.5);
-        appointment1.setBodyfat(12.5);
-        appointment1.setPhsical_description("Teste Teste");
-        appointment1.setRestrictions(restrictions.get_all_restrictions().get(1));
-        appointment1.setCalories_goal(2250.0);
         appointments.insert_appointment(appointment5);
 
         //showappointments(appointments);
@@ -232,7 +241,6 @@ public class Controller {
 
         System.out.println('\n' + "- VERIFICAÇÃO DOS DADOS INSERIDOS - ");
         showClient(client);
-        System.out.println('\n' + "Os dados estão corretos? (S/N)");
 
         return client;
     }
@@ -243,23 +251,32 @@ public class Controller {
 
 
         System.out.println("- MARCAÇÃO DE CONSULTA -");
-        while(client == null){
-            System.out.println("Insira o id do cliente");
-            id_client = sc.nextInt();
-            sc.nextLine();
-            client = this.clients.search_client(id_client);
-            if(client == null){
+
+        boolean valid_data = false;
+        while(client == null && !valid_data){
+            try{
+                System.out.println("Insira o id do cliente");
+                id_client = sc.nextInt();
+                sc.nextLine();
+                client = this.clients.search_client(id_client);
+                if(client == null){
+                    System.out.println("Valor inválido! Digite novamente." + '\n');
+                }else{
+                    valid_data = true;
+                }
+            }catch (Exception e){
                 System.out.println("Valor inválido! Digite novamente." + '\n');
+                sc.nextLine();
             }
         }
 
-        boolean valid_data = false;
-        while (!valid_data) {
+        boolean valid_data1 = false;
+        while (!valid_data1) {
             try {
                 System.out.println("Insira a data de marcação da consulta (dd-mm-yyyy hh:mi):");
                 daytime = sc.nextLine();
                 Date data_teste = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(daytime);
-                valid_data = true;
+                valid_data1 = true;
             } catch (Exception e) {
                 System.out.println("Data inválida! Digite novamente no padrão 'dd-mm-yyyy hh:mi'." + '\n');
             }
@@ -267,8 +284,7 @@ public class Controller {
 
         Appointment appointment = new Appointment(this.getAppointments().get_all_appointment().size(),client,daytime);
         System.out.println('\n' + "- VERIFICAÇÃO DOS DADOS INSERIDOS - ");
-        showAppointment(appointment);
-        System.out.println('\n' + "Os dados estão corretos? (S/N)");
+        int ver = showAppointment(appointment);
 
         return appointment;
     }
@@ -327,7 +343,12 @@ public class Controller {
         System.out.println("- TODAS AS CONSULTAS -");
         for (int i = 0;i<this.appointments.get_all_appointment().size(); i++) {
             Appointment appointment_test = this.appointments.get_all_appointment().get(i);
-            System.out.println("ID: " + appointment_test.getId_appointment() + ", Cliente: " + appointment_test.getClient().getName() + ", Data: " + appointment_test.getDaytime());
+            System.out.print("ID: " + appointment_test.getId_appointment() + ", Cliente: " + appointment_test.getClient().getName() + ", Data: " + appointment_test.getDaytime());
+            if(!appointment_test.getPhsical_description().isEmpty()){
+                System.out.println(", Peso: " + appointment_test.getWeight() + ", Percentual de gordura: " + appointment_test.getBodyfat() + ", Sensação física: " + appointment_test.getPhsical_description() + ", Restrições: " + showRestriction(appointment_test.getRestrictions()) + ", Alimento 1: " + appointment_test.getFood1().getName() + ", Alimento 2: " + appointment_test.getFood2().getName() + ", Alimento 3: " + appointment_test.getFood3().getName());
+            }else{
+                System.out.println(" - (CONSULTA NÃO REALIZADA!)");
+            }
         }
         System.out.println("");
     }
@@ -340,12 +361,38 @@ public class Controller {
             System.out.println("Nome: " + client.getName() + ", Dt Nascimento: " + client.getBirthdate() + ", E-mail: " + client.getMail() + ", Celular: " + client.getPhone_number() + ", Telefone: " + client.getLandline());
         }
     }
-    public static void showAppointment(Appointment appointment) {
+    public static int showAppointment(Appointment appointment) {
         if (appointment == null) {
+            //Não existe consulta
             System.out.println("A consulta informada não exite!");
+            return 0;
         }else{
-            System.out.println("ID: " + appointment.getId_appointment() + ", Nome: " + appointment.getClient().getName() + ", Data: " + appointment.getDaytime());
+            System.out.print("ID: " + appointment.getId_appointment() + ", Nome: " + appointment.getClient().getName() + ", Data: " + appointment.getDaytime());
+            if(!appointment.getPhsical_description().isEmpty()){
+                //Consulta já realizada
+                System.out.println(", Peso: " + appointment.getWeight() + ", Percentual de gordura: " + appointment.getBodyfat() + ", Sensação física: " + appointment.getPhsical_description() + ", Restrições: " + showRestriction(appointment.getRestrictions()) + ", Alimento 1: " + appointment.getFood1().getName() + ", Alimento 2: " + appointment.getFood2().getName() + ", Alimento 3: " + appointment.getFood3().getName());
+                System.out.println('\n' + "A consulta informada já foi realizada!" + '\n');
+                return 1;
+            }else{
+                //Consulta a se realizar
+                System.out.println(" - (CONSULTA NÃO REALIZADA!)");
+                return 2;
+            }
         }
+    }
+    public static String showRestriction(List<Restriction> restriction) {
+        String message = "";
+        if (restriction.size() == 0) {
+            message = "Não existem restrições!";
+        }else{
+            for(int i = 0; i<restriction.size();i++){
+                message += restriction.get(i).getName();
+                if(i < restriction.size() - 1){
+                    message += ", ";
+                }
+            }
+        }
+        return  message;
     }
 
     //Functions to show data stored in repositories
@@ -366,16 +413,17 @@ public class Controller {
     public void searchClient(Scanner sc){
         int id = 0;
         System.out.println("- BUSCA DE CLIENTE -");
-        System.out.println("Informe o id do cliente:");
 
         boolean valid_data = false;
         while (!valid_data) {
+            System.out.println("Informe o id do cliente:");
             try {
                 id = sc.nextInt();
-                sc.nextLine();
                 valid_data = true;
+                sc.nextLine();
             } catch (Exception e) {
                 System.out.println("Valor inválido! Digite novamente." + '\n');
+                sc.nextLine();
             }
         }
 
@@ -392,24 +440,253 @@ public class Controller {
     public void searchAppointment(Scanner sc){
         int id = 0;
         System.out.println("- INICIAR CONSULTA -");
-        System.out.println("Informe o id da consulta:");
 
         boolean valid_data = false;
         while (!valid_data) {
+            System.out.println("Informe o id da consulta:");
             try {
                 id = sc.nextInt();
                 sc.nextLine();
                 valid_data = true;
             } catch (Exception e) {
                 System.out.println("Valor inválido! Digite novamente." + '\n');
+                sc.nextLine();
             }
         }
 
         Appointment appointment = this.appointments.search_appointment(id);
         System.out.println("- DADOS DA CONSULTA -");
-        showAppointment(appointment);
+        int ie_appointment = showAppointment(appointment);
+        if(ie_appointment == 2){
+            System.out.println("- INICIAR CONSULTA -");
+            boolean status = Insert_Appointment_details(sc,appointment.getId_appointment());
+            if(status){
+                System.out.println("Consulta finalizada com sucesso!" + '\n');
+            }else{
+                System.out.println("Os dados inseridos foram descartados." +'\n');
+            }
+        }
         System.out.println("");
     }
+
+    public boolean Insert_Appointment_details(Scanner sc, int id_appointment) {
+        Double weight = 0.00;
+        Double bodyfat = 0.00;
+        String phsical_description = "";
+        Double calories = 0.00;
+        Food food1 = null;
+        Food food2 = null;
+        Food food3 = null;
+        boolean restriction1 = false;
+        boolean restriction2 = false;
+        boolean restriction3 = false;
+        boolean restriction4 = false;
+        boolean status = false;
+
+        boolean insert1 = false;
+        while (!insert1){
+            try {
+                System.out.println("Insira o peso do cliente:");
+                weight = sc.nextDouble();
+                sc.nextLine();
+                insert1 = true;
+            }catch (Exception e){
+                System.out.println("Valor inválido, insira novamente!");
+                sc.nextLine();
+            }
+        }
+
+        boolean insert2 = false;
+        while (!insert2) {
+            try {
+                System.out.println("Insira o percentual de gordura do cliente:");
+                bodyfat = sc.nextDouble();
+                sc.nextLine();
+                insert2 = true;
+            } catch (Exception e) {
+                System.out.println("Valor inválido, insira novamente!");
+                sc.nextLine();
+            }
+        }
+
+        System.out.println("Insira a sensação física do cliente:");
+        phsical_description = sc.nextLine();
+
+        boolean insert3 = false;
+        while (!insert3) {
+            try {
+                System.out.println("Insira a meta calórica do cliente:");
+                calories = sc.nextDouble();
+                sc.nextLine();
+                insert3 = true;
+            } catch (Exception e) {
+                System.out.println("Valor inválido, insira novamente!");
+                sc.nextLine();
+            }
+        }
+
+        String option1 = "";
+        while(!option1.equals("S")&&!option1.equals("N")){
+            System.out.println('\n' + "O paciente possui intolerância a lactose? (S/N)");
+            option1 = sc.nextLine().toUpperCase();
+            if(!option1.equals("S")&&!option1.equals("N")){
+                System.out.println("Dados incorretos. Favor inserir no formato correto (S/N)");
+            }
+        }
+        if(option1.equals("S")){
+            restriction1 = true;
+        }
+
+        String option2 = "";
+        while(!option2.equals("S")&&!option2.equals("N")){
+            System.out.println('\n' + "O paciente possui intolerância a glúten? (S/N)");
+            option2 = sc.nextLine().toUpperCase();
+            if(!option2.equals("S")&&!option2.equals("N")){
+                System.out.println("Dados incorretos. Favor inserir no formato correto (S/N)");
+            }
+        }
+        if(option1.equals("S")){
+            restriction2 = true;
+        }
+
+        String option3 = "";
+        while(!option3.equals("S")&&!option3.equals("N")){
+            System.out.println('\n' + "O paciente possui triglices alto? (S/N)");
+            option3 = sc.nextLine().toUpperCase();
+            if(!option3.equals("S")&&!option3.equals("N")){
+                System.out.println("Dados incorretos. Favor inserir no formato correto (S/N)");
+            }
+        }
+        if(option1.equals("S")){
+            restriction3 = true;
+        }
+
+        String option4 = "";
+        while(!option4.equals("S")&&!option4.equals("N")){
+            System.out.println('\n' + "O paciente possui diabetes? (S/N)");
+            option4 = sc.nextLine().toUpperCase();
+            if(!option4.equals("S")&&!option4.equals("N")){
+                System.out.println("Dados incorretos. Favor inserir no formato correto (S/N)");
+            }
+        }
+        if(option1.equals("S")){
+            restriction4 = true;
+        }
+
+        System.out.println('\n' + "- LISTA DE BEBIDAS -");
+        List<Food> foods_list = foods.search_food_by_group(0);
+        for (int i = 0; i < foods_list.size(); i++){
+            Food selected_food = foods_list.get(i);
+            System.out.println("ID: " + selected_food.getId_food() + ", Nome: " + selected_food.getName() + ", Calorias: " + selected_food.getCalories());
+        }
+
+        boolean valid_data1 = false;
+        while (!valid_data1) {
+            System.out.println('\n' + "Qual será a bebida inserida?");
+            try {
+                int number1 = sc.nextInt();
+                if(foods_list.contains(foods.get_all_foods().get(number1))) {
+                    food1 = foods.get_all_foods().get(number1);
+                    valid_data1 = true;
+                }else{
+                    System.out.println("Valor inválido! Digite novamente." + '\n');
+                }
+                sc.nextLine();
+            } catch (Exception e) {
+                System.out.println(e);
+                System.out.println("Valor inválido! Digite novamente." + '\n');
+                sc.nextLine();
+            }
+        }
+
+
+        System.out.println('\n' + "- LISTA DE ALIMENTOS SÓLIDOS -");
+        List<Food> foods_list1 = foods.search_food_by_group(1);
+        for (int i = 0; i < foods_list1.size(); i++){
+            Food selected_food = foods_list1.get(i);
+            System.out.println("ID: " + selected_food.getId_food() + ", Nome: " + selected_food.getName() + ", Calorias: " + selected_food.getCalories());
+        }
+
+        boolean valid_data2 = false;
+        while (!valid_data2) {
+            System.out.println('\n' + "Qual será o alimento sólido inserido?");
+            try {
+                int number2 = sc.nextInt();
+                if(foods_list1.contains(foods.get_all_foods().get(number2))) {
+                    food2 = foods.get_all_foods().get(number2);
+                    valid_data2 = true;
+                }else{
+                    System.out.println("Valor inválido! Digite novamente." + '\n');
+                }
+                sc.nextLine();
+            } catch (Exception e) {
+                System.out.println(e);
+                System.out.println("Valor inválido! Digite novamente." + '\n');
+                sc.nextLine();
+            }
+        }
+
+
+        System.out.println('\n' + "- LISTA DE CARNES/OVOS -");
+        List<Food> foods_list2 = foods.search_food_by_group(2);
+        for (int i = 0; i < foods_list2.size(); i++){
+            Food selected_food = foods_list2.get(i);
+            System.out.println("ID: " + selected_food.getId_food() + ", Nome: " + selected_food.getName() + ", Calorias: " + selected_food.getCalories());
+        }
+
+        boolean valid_data3 = false;
+        while (!valid_data3) {
+            System.out.println('\n' + "Qual será o tipo de carne/ovo inserido?");
+            try {
+                int number3 = sc.nextInt();
+                if(foods_list2.contains(foods.get_all_foods().get(number3))) {
+                    food3 = foods.get_all_foods().get(number3);
+                    valid_data3 = true;
+                }else{
+                    System.out.println("Valor inválido! Digite novamente." + '\n');
+                }
+                sc.nextLine();
+            } catch (Exception e) {
+                System.out.println("Valor inválido! Digite novamente." + '\n');
+                sc.nextLine();
+            }
+        }
+
+        String option_insert = "";
+        while(!option_insert.equals("S")&&!option_insert.equals("N")){
+            System.out.println('\n' + "Deseja inserir os dados informados? (S/N)");
+            option_insert = sc.nextLine().toUpperCase();
+            if(!option_insert.equals("S")&&!option_insert.equals("N")){
+                System.out.println("Dados incorretos. Favor inserir no formato correto (S/N)");
+            }
+        }
+
+        if(option_insert.equals("S")){
+            appointments.get_all_appointment().get(id_appointment).setWeight(weight);
+            appointments.get_all_appointment().get(id_appointment).setBodyfat(bodyfat);
+            appointments.get_all_appointment().get(id_appointment).setPhsical_description(phsical_description);
+            if(restriction1){
+                appointments.get_all_appointment().get(id_appointment).setRestrictions(this.restrictions.get_all_restrictions().get(0));
+            }
+            if(restriction2){
+                appointments.get_all_appointment().get(id_appointment).setRestrictions(this.restrictions.get_all_restrictions().get(1));
+            }
+            if(restriction3){
+                appointments.get_all_appointment().get(id_appointment).setRestrictions(this.restrictions.get_all_restrictions().get(2));
+            }
+            if(restriction4){
+                appointments.get_all_appointment().get(id_appointment).setRestrictions(this.restrictions.get_all_restrictions().get(3));
+            }
+            appointments.get_all_appointment().get(id_appointment).setFood1(food1);
+            appointments.get_all_appointment().get(id_appointment).setFood2(food2);
+            appointments.get_all_appointment().get(id_appointment).setFood3(food3);
+            status = true;
+        }else{
+            status = false;
+        }
+        return status;
+    }
+
 
     public Client_Repository getClients() {
         return clients;
