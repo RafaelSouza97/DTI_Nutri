@@ -5,10 +5,7 @@ import DTINutri.Repository.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Controller {
     private Client_Repository clients;
@@ -288,187 +285,6 @@ public class Controller {
 
         return appointment;
     }
-
-    //Functions to show data stored in repositories
-    public void showClients(){
-        //Show Client informations
-        System.out.println("- TODOS OS CLIENTES -");
-        for (int i = 0;i<this.clients.get_all_clients().size(); i++) {
-            Client client_test = this.clients.get_all_clients().get(i);
-            System.out.println("ID: " + client_test.getId_client() + ", Nome: " + client_test.getName() + ", Dt. Nascimento: " + client_test.getBirthdate());
-        }
-        System.out.println("");
-    }
-    public void showFood_Groups(){
-        //Show Food_Group informations
-        System.out.println("- TODOS OS GRUPOS DE ALIMENTOS -");
-        for (int i = 0;i<this.food_groups.get_all_Food_Groups().size(); i++) {
-            Food_Group food_group_test = this.food_groups.get_all_Food_Groups().get(i);
-            System.out.println("ID: " + food_group_test.getId_food_group() + ", Nome: " + food_group_test.getName());
-        }
-        System.out.println("");
-    }
-    public void showRestrictions(){
-        //Show Restriction informations
-        System.out.println("- TODAS AS RESTRIÇÕES -");
-        for (int i = 0;i<this.restrictions.get_all_restrictions().size(); i++) {
-            Restriction restriction_test = this.restrictions.get_all_restrictions().get(i);
-            System.out.println("ID: " + restriction_test.getId_restriction() + ", Nome: " + restriction_test.getName());
-        }
-        System.out.println("");
-    }
-    public void showFoods(){
-        //Show Foods information
-        System.out.println("- TODOS OS ALIMENTOS -");
-        for (int i = 0;i<this.foods.get_all_foods().size(); i++) {
-            Food food_test = this.foods.get_all_foods().get(i);
-            System.out.print("ID: " + food_test.getId_food() + ", Nome: " + food_test.getName() + ", Grupo: " + food_test.getFood_group().getName() + ", Restrições: ");
-            if(food_test.getRestrictions().isEmpty()){
-                System.out.print("Nenhuma;" + '\n');
-            }else {
-                for (int y = 0; y < food_test.getRestrictions().size(); y++) {
-                    Restriction restrictions = food_test.getRestrictions().get(y);
-                    System.out.print(restrictions.getName());
-                    if (y < food_test.getRestrictions().size() - 1) {
-                        System.out.print(", ");
-                    } else {
-                        System.out.print(";" + '\n');
-                    }
-                }
-            }
-        }
-        System.out.println("");
-    }
-    public void showAppointments(){
-        System.out.println("- TODAS AS CONSULTAS -");
-        for (int i = 0;i<this.appointments.get_all_appointment().size(); i++) {
-            Appointment appointment_test = this.appointments.get_all_appointment().get(i);
-            System.out.print("ID: " + appointment_test.getId_appointment() + ", Cliente: " + appointment_test.getClient().getName() + ", Data: " + appointment_test.getDaytime());
-            if(!appointment_test.getPhsical_description().isEmpty()){
-                System.out.println(", Peso: " + appointment_test.getWeight() + ", Percentual de gordura: " + appointment_test.getBodyfat() + ", Sensação física: " + appointment_test.getPhsical_description() + ", Restrições: " + showRestriction(appointment_test.getRestrictions()) + ", Alimento 1: " + appointment_test.getFood1().getName() + ", Alimento 2: " + appointment_test.getFood2().getName() + ", Alimento 3: " + appointment_test.getFood3().getName());
-            }else{
-                System.out.println(" - (CONSULTA NÃO REALIZADA!)");
-            }
-        }
-        System.out.println("");
-    }
-
-    //Functions to show each object
-    public static void showClient(Client client) {
-        if (client == null) {
-            System.out.println("O cliente informado não exite!");
-        }else{
-            System.out.println("Nome: " + client.getName() + ", Dt Nascimento: " + client.getBirthdate() + ", E-mail: " + client.getMail() + ", Celular: " + client.getPhone_number() + ", Telefone: " + client.getLandline());
-        }
-    }
-    public static int showAppointment(Appointment appointment) {
-        if (appointment == null) {
-            //Não existe consulta
-            System.out.println("A consulta informada não exite!");
-            return 0;
-        }else{
-            System.out.print("ID: " + appointment.getId_appointment() + ", Nome: " + appointment.getClient().getName() + ", Data: " + appointment.getDaytime());
-            if(!appointment.getPhsical_description().isEmpty()){
-                //Consulta já realizada
-                System.out.println(", Peso: " + appointment.getWeight() + ", Percentual de gordura: " + appointment.getBodyfat() + ", Sensação física: " + appointment.getPhsical_description() + ", Restrições: " + showRestriction(appointment.getRestrictions()) + ", Alimento 1: " + appointment.getFood1().getName() + ", Alimento 2: " + appointment.getFood2().getName() + ", Alimento 3: " + appointment.getFood3().getName());
-                System.out.println('\n' + "A consulta informada já foi realizada!" + '\n');
-                return 1;
-            }else{
-                //Consulta a se realizar
-                System.out.println(" - (CONSULTA NÃO REALIZADA!)");
-                return 2;
-            }
-        }
-    }
-    public static String showRestriction(List<Restriction> restriction) {
-        String message = "";
-        if (restriction.size() == 0) {
-            message = "Não existem restrições!";
-        }else{
-            for(int i = 0; i<restriction.size();i++){
-                message += restriction.get(i).getName();
-                if(i < restriction.size() - 1){
-                    message += ", ";
-                }
-            }
-        }
-        return  message;
-    }
-
-    //Functions to show data stored in repositories
-    public static void showClientAppointments(List<Appointment> appointments){
-        System.out.println("- TODAS AS CONSULTAS -");
-        if(appointments.size() == 0) {
-            System.out.println("O cliente não possui consultas!");
-        }else{
-            for (int i = 0;i<appointments.size(); i++) {
-                Appointment appointment_test = appointments.get(i);
-                System.out.println("ID: " + appointment_test.getId_appointment() + ", Cliente: " + appointment_test.getClient().getName() + ", Data: " + appointment_test.getDaytime());
-            }
-        }
-        System.out.println("");
-    }
-
-    //Fucntions to search each object
-    public void searchClient(Scanner sc){
-        int id = 0;
-        System.out.println("- BUSCA DE CLIENTE -");
-
-        boolean valid_data = false;
-        while (!valid_data) {
-            System.out.println("Informe o id do cliente:");
-            try {
-                id = sc.nextInt();
-                valid_data = true;
-                sc.nextLine();
-            } catch (Exception e) {
-                System.out.println("Valor inválido! Digite novamente." + '\n');
-                sc.nextLine();
-            }
-        }
-
-        Client client = this.clients.search_client(id);
-        System.out.println("- DADOS DO CLIENTE -");
-        showClient(client);
-        System.out.println("");
-
-        if(client != null) {
-            List<Appointment> client_appointments_list = this.appointments.search_client_appointments(client.getId_client());
-            showClientAppointments(client_appointments_list);
-        }
-    }
-    public void searchAppointment(Scanner sc){
-        int id = 0;
-        System.out.println("- INICIAR CONSULTA -");
-
-        boolean valid_data = false;
-        while (!valid_data) {
-            System.out.println("Informe o id da consulta:");
-            try {
-                id = sc.nextInt();
-                sc.nextLine();
-                valid_data = true;
-            } catch (Exception e) {
-                System.out.println("Valor inválido! Digite novamente." + '\n');
-                sc.nextLine();
-            }
-        }
-
-        Appointment appointment = this.appointments.search_appointment(id);
-        System.out.println("- DADOS DA CONSULTA -");
-        int ie_appointment = showAppointment(appointment);
-        if(ie_appointment == 2){
-            System.out.println("- INICIAR CONSULTA -");
-            boolean status = Insert_Appointment_details(sc,appointment.getId_appointment());
-            if(status){
-                System.out.println("Consulta finalizada com sucesso!" + '\n');
-            }else{
-                System.out.println("Os dados inseridos foram descartados." +'\n');
-            }
-        }
-        System.out.println("");
-    }
-
     public boolean Insert_Appointment_details(Scanner sc, int id_appointment) {
         Double weight = 0.00;
         Double bodyfat = 0.00;
@@ -572,6 +388,8 @@ public class Controller {
         if(option1.equals("S")){
             restriction4 = true;
         }
+
+        permutation_foods(calories);
 
         System.out.println('\n' + "- LISTA DE BEBIDAS -");
         List<Food> foods_list = foods.search_food_by_group(0);
@@ -685,6 +503,212 @@ public class Controller {
             status = false;
         }
         return status;
+    }
+
+
+    //Functions to show data stored in repositories
+    public void showClients(){
+        //Show Client informations
+        System.out.println("- TODOS OS CLIENTES -");
+        for (int i = 0;i<this.clients.get_all_clients().size(); i++) {
+            Client client_test = this.clients.get_all_clients().get(i);
+            System.out.println("ID: " + client_test.getId_client() + ", Nome: " + client_test.getName() + ", Dt. Nascimento: " + client_test.getBirthdate());
+        }
+        System.out.println("");
+    }
+    public void showFood_Groups(){
+        //Show Food_Group informations
+        System.out.println("- TODOS OS GRUPOS DE ALIMENTOS -");
+        for (int i = 0;i<this.food_groups.get_all_Food_Groups().size(); i++) {
+            Food_Group food_group_test = this.food_groups.get_all_Food_Groups().get(i);
+            System.out.println("ID: " + food_group_test.getId_food_group() + ", Nome: " + food_group_test.getName());
+        }
+        System.out.println("");
+    }
+    public void showRestrictions(){
+        //Show Restriction informations
+        System.out.println("- TODAS AS RESTRIÇÕES -");
+        for (int i = 0;i<this.restrictions.get_all_restrictions().size(); i++) {
+            Restriction restriction_test = this.restrictions.get_all_restrictions().get(i);
+            System.out.println("ID: " + restriction_test.getId_restriction() + ", Nome: " + restriction_test.getName());
+        }
+        System.out.println("");
+    }
+    public void showFoods(){
+        //Show Foods information
+        System.out.println("- TODOS OS ALIMENTOS -");
+        for (int i = 0;i<this.foods.get_all_foods().size(); i++) {
+            Food food_test = this.foods.get_all_foods().get(i);
+            System.out.print("ID: " + food_test.getId_food() + ", Nome: " + food_test.getName() + ", Grupo: " + food_test.getFood_group().getName() + ", Restrições: ");
+            if(food_test.getRestrictions().isEmpty()){
+                System.out.print("Nenhuma;" + '\n');
+            }else {
+                for (int y = 0; y < food_test.getRestrictions().size(); y++) {
+                    Restriction restrictions = food_test.getRestrictions().get(y);
+                    System.out.print(restrictions.getName());
+                    if (y < food_test.getRestrictions().size() - 1) {
+                        System.out.print(", ");
+                    } else {
+                        System.out.print(";" + '\n');
+                    }
+                }
+            }
+        }
+        System.out.println("");
+    }
+    public void showAppointments(){
+        System.out.println("- TODAS AS CONSULTAS -");
+        for (int i = 0;i<this.appointments.get_all_appointment().size(); i++) {
+            Appointment appointment_test = this.appointments.get_all_appointment().get(i);
+            System.out.print("ID: " + appointment_test.getId_appointment() + ", Cliente: " + appointment_test.getClient().getName() + ", Data: " + appointment_test.getDaytime());
+            if(!appointment_test.getPhsical_description().isEmpty()){
+                System.out.println(", Peso: " + appointment_test.getWeight() + ", Percentual de gordura: " + appointment_test.getBodyfat() + ", Sensação física: " + appointment_test.getPhsical_description() + ", Restrições: " + showRestriction(appointment_test.getRestrictions()) + ", Alimento 1: " + appointment_test.getFood1().getName() + ", Alimento 2: " + appointment_test.getFood2().getName() + ", Alimento 3: " + appointment_test.getFood3().getName());
+            }else{
+                System.out.println(" - (CONSULTA NÃO REALIZADA!)");
+            }
+        }
+        System.out.println("");
+    }
+    public static void showClientAppointments(List<Appointment> appointments){
+        System.out.println("- TODAS AS CONSULTAS -");
+        if(appointments.size() == 0) {
+            System.out.println("O cliente não possui consultas!");
+        }else{
+            for (int i = 0;i<appointments.size(); i++) {
+                Appointment appointment_test = appointments.get(i);
+                System.out.println("ID: " + appointment_test.getId_appointment() + ", Cliente: " + appointment_test.getClient().getName() + ", Data: " + appointment_test.getDaytime());
+            }
+        }
+        System.out.println("");
+    }
+
+
+    //Functions to show each object
+    public static void showClient(Client client) {
+        if (client == null) {
+            System.out.println("O cliente informado não exite!");
+        }else{
+            System.out.println("Nome: " + client.getName() + ", Dt Nascimento: " + client.getBirthdate() + ", E-mail: " + client.getMail() + ", Celular: " + client.getPhone_number() + ", Telefone: " + client.getLandline());
+        }
+    }
+    public static int showAppointment(Appointment appointment) {
+        if (appointment == null) {
+            //Não existe consulta
+            System.out.println("A consulta informada não exite!");
+            return 0;
+        }else{
+            System.out.print("ID: " + appointment.getId_appointment() + ", Nome: " + appointment.getClient().getName() + ", Data: " + appointment.getDaytime());
+            if(!appointment.getPhsical_description().isEmpty()){
+                //Consulta já realizada
+                System.out.println(", Peso: " + appointment.getWeight() + ", Percentual de gordura: " + appointment.getBodyfat() + ", Sensação física: " + appointment.getPhsical_description() + ", Restrições: " + showRestriction(appointment.getRestrictions()) + ", Alimento 1: " + appointment.getFood1().getName() + ", Alimento 2: " + appointment.getFood2().getName() + ", Alimento 3: " + appointment.getFood3().getName());
+                System.out.println('\n' + "A consulta informada já foi realizada!" + '\n');
+                return 1;
+            }else{
+                //Consulta a se realizar
+                System.out.println(" - (CONSULTA NÃO REALIZADA!)");
+                return 2;
+            }
+        }
+    }
+    public static String showRestriction(List<Restriction> restriction) {
+        String message = "";
+        if (restriction.size() == 0) {
+            message = "Não existem restrições!";
+        }else{
+            for(int i = 0; i<restriction.size();i++){
+                message += restriction.get(i).getName();
+                if(i < restriction.size() - 1){
+                    message += ", ";
+                }
+            }
+        }
+        return  message;
+    }
+
+    //Fucntions to search each object
+    public void searchClient(Scanner sc){
+        int id = 0;
+        System.out.println("- BUSCA DE CLIENTE -");
+
+        boolean valid_data = false;
+        while (!valid_data) {
+            System.out.println("Informe o id do cliente:");
+            try {
+                id = sc.nextInt();
+                valid_data = true;
+                sc.nextLine();
+            } catch (Exception e) {
+                System.out.println("Valor inválido! Digite novamente." + '\n');
+                sc.nextLine();
+            }
+        }
+
+        Client client = this.clients.search_client(id);
+        System.out.println("- DADOS DO CLIENTE -");
+        showClient(client);
+        System.out.println("");
+
+        if(client != null) {
+            List<Appointment> client_appointments_list = this.appointments.search_client_appointments(client.getId_client());
+            showClientAppointments(client_appointments_list);
+        }
+    }
+    public void searchAppointment(Scanner sc){
+        int id = 0;
+        System.out.println("- INICIAR CONSULTA -");
+
+        boolean valid_data = false;
+        while (!valid_data) {
+            System.out.println("Informe o id da consulta:");
+            try {
+                id = sc.nextInt();
+                sc.nextLine();
+                valid_data = true;
+            } catch (Exception e) {
+                System.out.println("Valor inválido! Digite novamente." + '\n');
+                sc.nextLine();
+            }
+        }
+
+        Appointment appointment = this.appointments.search_appointment(id);
+        System.out.println("- DADOS DA CONSULTA -");
+        int ie_appointment = showAppointment(appointment);
+        if(ie_appointment == 2){
+            System.out.println("- INICIAR CONSULTA -");
+            boolean status = Insert_Appointment_details(sc,appointment.getId_appointment());
+            if(status){
+                System.out.println("Consulta finalizada com sucesso!" + '\n');
+            }else{
+                System.out.println("Os dados inseridos foram descartados." +'\n');
+            }
+        }
+        System.out.println("");
+    }
+
+    //Funcion to permutate the food values
+    public void permutation_foods(double total_cal){
+        System.out.println("- LISTA DE ALIMENTOS RECOMENDADOS -");
+        Map<Double, List<Food>> mapa = new HashMap<Double, List<Food>>();
+
+        List<Food> foods1 = foods.search_food_by_group(0);
+        List<Food> foods2 = foods.search_food_by_group(1);
+        List<Food> foods3 = foods.search_food_by_group(2);
+
+        for(int x = 0; x<foods1.size();x++){
+            for(int y = 0; y<foods2.size();y++){
+                for (int z = 0; z<foods3.size();z++){
+                    double calories = foods1.get(x).getCalories() + foods2.get(y).getCalories() + foods3.get(z).getCalories();
+                    if(calories <= total_cal) {
+                        System.out.println("Bebida: " + foods1.get(x).getName() + ", Alimento Sólido: " + foods2.get(y).getName() + ", Carne/Ovo: " + foods3.get(z).getName() + ", Total de Calorias: " + calories);
+                    }
+                    List<Food> food_combination = new ArrayList<Food>();
+                    food_combination.add(foods1.get(x));
+                    food_combination.add(foods2.get(y));
+                    food_combination.add(foods3.get(z));
+                    mapa.put(calories,food_combination);
+                }
+            }
+        }
     }
 
 
