@@ -194,16 +194,13 @@ public class Controller {
 
     //Functions to insert values written by the user
     public Client Insert_Client(Scanner sc) throws ParseException {
-        String name = "";
+
         String birthdate = "";
-        String address = "";
         String mail = "";
-        String phone_number = "";
-        String landline = "";
 
         System.out.println("- CADASTRO DE CLIENTE -");
         System.out.println("Insira o nome do cliente:");
-        name = sc.nextLine();
+        String name = sc.nextLine();
 
         boolean valid_data = false;
         while (!valid_data) {
@@ -218,7 +215,7 @@ public class Controller {
         }
 
         System.out.println("Insira o endereço do cliente:");
-        address = sc.nextLine();
+        String address = sc.nextLine();
 
         do{
             System.out.println("Insira o e-mail do cliente:");
@@ -229,10 +226,10 @@ public class Controller {
         }while (!mail.contains("@"));
 
         System.out.println("Insira o número de celular do cliente:");
-        phone_number = sc.nextLine();
+        String phone_number = sc.nextLine();
 
         System.out.println("Insira o número de telefone do clinte:");
-        landline = sc.nextLine();
+        String landline = sc.nextLine();
 
         Client client = new Client(this.clients.get_all_clients().size(),name,birthdate,address,mail,phone_number,landline);
 
@@ -281,14 +278,13 @@ public class Controller {
 
         Appointment appointment = new Appointment(this.getAppointments().get_all_appointment().size(),client,daytime);
         System.out.println('\n' + "- VERIFICAÇÃO DOS DADOS INSERIDOS - ");
-        int ver = showAppointment(appointment);
+        showAppointment(appointment);
 
         return appointment;
     }
     public boolean Insert_Appointment_details(Scanner sc, int id_appointment) {
         Double weight = 0.00;
         Double bodyfat = 0.00;
-        String phsical_description = "";
         Double calories = 0.00;
         Food food1 = null;
         Food food2 = null;
@@ -326,7 +322,7 @@ public class Controller {
         }
 
         System.out.println("Insira a sensação física do cliente:");
-        phsical_description = sc.nextLine();
+        String phsical_description = sc.nextLine();
 
         boolean insert3 = false;
         while (!insert3) {
@@ -392,9 +388,13 @@ public class Controller {
         permutation_foods(calories);
 
         System.out.println('\n' + "- LISTA DE BEBIDAS -");
-        List<Food> foods_list = foods.search_food_by_group(0);
-        for (int i = 0; i < foods_list.size(); i++){
-            Food selected_food = foods_list.get(i);
+        List<Food> foods_list = null;
+        try {
+            foods_list = foods.search_food_by_group(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        for (Food selected_food : foods_list) {
             System.out.println("ID: " + selected_food.getId_food() + ", Nome: " + selected_food.getName() + ", Calorias: " + selected_food.getCalories());
         }
 
@@ -411,7 +411,6 @@ public class Controller {
                 }
                 sc.nextLine();
             } catch (Exception e) {
-                System.out.println(e);
                 System.out.println("Valor inválido! Digite novamente." + '\n');
                 sc.nextLine();
             }
@@ -419,9 +418,13 @@ public class Controller {
 
 
         System.out.println('\n' + "- LISTA DE ALIMENTOS SÓLIDOS -");
-        List<Food> foods_list1 = foods.search_food_by_group(1);
-        for (int i = 0; i < foods_list1.size(); i++){
-            Food selected_food = foods_list1.get(i);
+        List<Food> foods_list1 = null;
+        try {
+            foods_list1 = foods.search_food_by_group(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        for (Food selected_food : foods_list1) {
             System.out.println("ID: " + selected_food.getId_food() + ", Nome: " + selected_food.getName() + ", Calorias: " + selected_food.getCalories());
         }
 
@@ -438,7 +441,6 @@ public class Controller {
                 }
                 sc.nextLine();
             } catch (Exception e) {
-                System.out.println(e);
                 System.out.println("Valor inválido! Digite novamente." + '\n');
                 sc.nextLine();
             }
@@ -446,9 +448,14 @@ public class Controller {
 
 
         System.out.println('\n' + "- LISTA DE CARNES/OVOS -");
-        List<Food> foods_list2 = foods.search_food_by_group(2);
-        for (int i = 0; i < foods_list2.size(); i++){
-            Food selected_food = foods_list2.get(i);
+        List<Food> foods_list2 = null;
+        try {
+            foods_list2 = foods.search_food_by_group(2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        for (Food selected_food : foods_list2) {
             System.out.println("ID: " + selected_food.getId_food() + ", Nome: " + selected_food.getName() + ", Calorias: " + selected_food.getCalories());
         }
 
@@ -504,7 +511,6 @@ public class Controller {
         }
         return status;
     }
-
 
     //Functions to show data stored in repositories
     public void showClients(){
@@ -574,14 +580,12 @@ public class Controller {
         if(appointments.size() == 0) {
             System.out.println("O cliente não possui consultas!");
         }else{
-            for (int i = 0;i<appointments.size(); i++) {
-                Appointment appointment_test = appointments.get(i);
+            for (Appointment appointment_test : appointments) {
                 System.out.println("ID: " + appointment_test.getId_appointment() + ", Cliente: " + appointment_test.getClient().getName() + ", Data: " + appointment_test.getDaytime());
             }
         }
         System.out.println("");
     }
-
 
     //Functions to show each object
     public static void showClient(Client client) {
@@ -611,18 +615,18 @@ public class Controller {
         }
     }
     public static String showRestriction(List<Restriction> restriction) {
-        String message = "";
+        StringBuilder message = new StringBuilder();
         if (restriction.size() == 0) {
-            message = "Não existem restrições!";
+            message = new StringBuilder("Não existem restrições!");
         }else{
             for(int i = 0; i<restriction.size();i++){
-                message += restriction.get(i).getName();
+                message.append(restriction.get(i).getName());
                 if(i < restriction.size() - 1){
-                    message += ", ";
+                    message.append(", ");
                 }
             }
         }
-        return  message;
+        return message.toString();
     }
 
     //Fucntions to search each object
@@ -690,27 +694,31 @@ public class Controller {
         System.out.println("- LISTA DE ALIMENTOS RECOMENDADOS -");
         Map<Double, List<Food>> mapa = new HashMap<Double, List<Food>>();
 
-        List<Food> foods1 = foods.search_food_by_group(0);
-        List<Food> foods2 = foods.search_food_by_group(1);
-        List<Food> foods3 = foods.search_food_by_group(2);
+        List<Food> foods1, foods2, foods3 = null;
+        try {
+            foods1 = foods.search_food_by_group(0);
+            foods2 = foods.search_food_by_group(1);
+            foods3 = foods.search_food_by_group(2);
 
-        for(int x = 0; x<foods1.size();x++){
-            for(int y = 0; y<foods2.size();y++){
-                for (int z = 0; z<foods3.size();z++){
-                    double calories = foods1.get(x).getCalories() + foods2.get(y).getCalories() + foods3.get(z).getCalories();
-                    if(calories <= total_cal) {
-                        System.out.println("Bebida: " + foods1.get(x).getName() + ", Alimento Sólido: " + foods2.get(y).getName() + ", Carne/Ovo: " + foods3.get(z).getName() + ", Total de Calorias: " + calories);
+            for (Food item : foods1) {
+                for (Food value : foods2) {
+                    for (Food food : foods3) {
+                        double calories = item.getCalories() + value.getCalories() + food.getCalories();
+                        if (calories <= total_cal) {
+                            System.out.println("Bebida: " + item.getName() + ", Alimento Sólido: " + value.getName() + ", Carne/Ovo: " + food.getName() + ", Total de Calorias: " + calories);
+                        }
+                        List<Food> food_combination = new ArrayList<Food>();
+                        food_combination.add(item);
+                        food_combination.add(value);
+                        food_combination.add(food);
+                        mapa.put(calories, food_combination);
                     }
-                    List<Food> food_combination = new ArrayList<Food>();
-                    food_combination.add(foods1.get(x));
-                    food_combination.add(foods2.get(y));
-                    food_combination.add(foods3.get(z));
-                    mapa.put(calories,food_combination);
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
 
     public Client_Repository getClients() {
         return clients;

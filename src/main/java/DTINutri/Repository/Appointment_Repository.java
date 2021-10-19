@@ -1,7 +1,6 @@
 package DTINutri.Repository;
 
 import DTINutri.Domain.Appointment;
-import DTINutri.Domain.Client;
 
 import java.util.ArrayList;
 import java.util.Collection;

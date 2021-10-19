@@ -1,6 +1,5 @@
 package DTINutri.Domain;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,8 +16,7 @@ public class Client {
     public Client(int id_client, String name, String birthdate, String address, String mail, String phone_number, String landline) throws ParseException {
         this.id_client = id_client;
         this.name = name;
-        Date data = new SimpleDateFormat("dd-MM-yyyy").parse(birthdate);
-        this.birthdate = data;
+        this.birthdate = new SimpleDateFormat("dd-MM-yyyy").parse(birthdate);
         this.address = address;
         this.mail = mail;
         this.phone_number = phone_number;
@@ -42,13 +40,11 @@ public class Client {
     }
 
     public String getBirthdate() {
-        String birthdate_s = new SimpleDateFormat("dd-MM-yyyy").format(birthdate);
-        return birthdate_s;
+        return new SimpleDateFormat("dd-MM-yyyy").format(birthdate);
     }
 
     public void setBirthdate(String birthdate) throws ParseException {
-        Date data = new SimpleDateFormat("dd-MM-yyyy").parse(birthdate);
-        this.birthdate = data;
+        this.birthdate = new SimpleDateFormat("dd-MM-yyyy").parse(birthdate);
     }
 
     public String getAddress() {

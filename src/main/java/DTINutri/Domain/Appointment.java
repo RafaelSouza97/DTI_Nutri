@@ -23,8 +23,7 @@ public class Appointment {
     public Appointment(int id_appointment, Client client, String daytime) throws ParseException {
         this.id_appointment = id_appointment;
         this.client = client;
-        Date data = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(daytime);
-        this.daytime = data;
+        this.daytime = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(daytime);
         this.restrictions = new ArrayList<Restriction>();
         this.phsical_description = "";
         this.food1 = null;
@@ -73,13 +72,11 @@ public class Appointment {
     }
 
     public String getDaytime() {
-        String daytime_s = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(daytime);
-        return daytime_s;
+        return new SimpleDateFormat("dd-MM-yyyy HH:mm").format(daytime);
     }
 
     public void setDaytime(String daytime) throws ParseException {
-        Date data = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(daytime);
-        this.daytime = data;
+        this.daytime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(daytime);
     }
 
     public Double getWeight() {
